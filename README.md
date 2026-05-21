@@ -1,6 +1,6 @@
 🟢 Matrix — Calcul Infini
 
-"Il n'y a pas de cuillère."
+
 
 Une simulation visuelle inspirée de The Matrix qui exécute un moteur de calcul mathématique infini — en temps réel, sans jamais s'arrêter.
 
