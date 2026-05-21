@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Matrix - Calcul Infini</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+
+        <canvas id="calculs"></canvas>
+        <canvas id="rain"></canvas>
+        <div id="scanlines"></div>
+
+        <div id="panel">
+            <div class="corner tl"></div>
+            <div class="corner tr"></div>
+            <div class="corner bl"></div>
+            <div class="corner br"></div>
+
+
+            <div class="label">//  SYSTÈME MATRIX — MODULE ARITHMÉTIQUE</div>
+            <h1>calcul infinite</h1> 
+
+            <div class="progress-wrap">
+                <div class="progress-label">PROGRESSION SÉQUENCE EN COURS</div>
+                <div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
+            </div>
+            <div id="result-box">
+                <div class="result-label">OPÉRATION ACTIVE</div>
+                <div id="current-op">Initialisation du moteur de calcul...</div>
+                </div>
+
+                <div class="counters">
+                    <div class="counter"> 
+                        <span class="c-label">OPS TOTALES</span>
+                        <div class="c-val" id="cnt-ops">0</div>
+                    </div>
+                    <div class="counter">
+                        <span class="c-label">OPS / SEC</span>
+                        <div class="c-val" id="cnt-speed">0</div>
+                    </div>
+
+                <div class="counter">
+                    <span class="c-label">RESULTAT</span>
+                    <div class="c-val" id="cnt-result">-</div>
+                 </div>
+          </div>
+
+          <div id="log"></div>
+        </div>
+
+
+        <div id="statusbar">
+            <div> MATRIX_CORE v2.0</div> - <span id="sb-time">00:00:00</span>
+                <div>MEMOIRE : <span id="sb-mem">0</span>KB</div>
+                <div>ENTROPIE : <span id="sb-entropy">0.000</span></div>
+        </div>
+
+
+
+
+
+<script src="script.js" id="js"></script>
+
+    </body>
+</html>

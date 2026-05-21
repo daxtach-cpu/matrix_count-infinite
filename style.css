@@ -1,0 +1,237 @@
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+    :root {
+      --green: #00ff41;
+      --green-dim: #003b00;
+      --green-mid: #00aa2a;
+      --green-glow: #00ff4188;
+      --bg: #000300;
+    }
+ 
+    body {
+      background: var(--bg);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      font-family: 'Share Tech Mono', monospace;
+    }
+ 
+    /* ── Canvas pluie matrix ── */
+    #rain {
+      position: fixed;
+      top: 0; left: 0;
+      z-index: 1;
+      opacity: 0.55;
+    }
+ 
+    /* ── Canvas calculs géants en fond ── */
+    #calculs {
+      position: fixed;
+      top: 0; left: 0;
+      z-index: 0;
+      opacity: 0.18;
+    }
+ 
+    /* ── Panneau central ── */
+    #panel {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      width: min(700px, 92vw);
+      border: 1px solid var(--green-mid);
+      background: rgba(0, 8, 0, 0.82);
+      backdrop-filter: blur(6px);
+      padding: 36px 40px;
+      box-shadow:
+        0 0 40px var(--green-glow),
+        inset 0 0 30px rgba(0,255,65,0.04);
+    }
+ 
+    #panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid var(--green);
+      opacity: 0.15;
+      pointer-events: none;
+      animation: borderPulse 3s ease-in-out infinite;
+    }
+ 
+    @keyframes borderPulse {
+      0%, 100% { opacity: 0.10; }
+      50%       { opacity: 0.35; }
+    }
+ 
+    .label {
+      font-family: 'VT323', monospace;
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: var(--green-mid);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+ 
+    h1 {
+      font-family: 'VT323', monospace;
+      font-size: clamp(28px, 5vw, 48px);
+      color: var(--green);
+      text-shadow: 0 0 20px var(--green), 0 0 40px var(--green-glow);
+      letter-spacing: 6px;
+      margin-bottom: 28px;
+    }
+ 
+    /* ── Résultat courant ── */
+    #result-box {
+      background: rgba(0,255,65,0.04);
+      border: 1px solid var(--green-dim);
+      padding: 14px 18px;
+      margin-bottom: 20px;
+    }
+ 
+    .result-label {
+      font-size: 10px;
+      color: var(--green-mid);
+      letter-spacing: 3px;
+      margin-bottom: 6px;
+    }
+ 
+    #current-op {
+      font-size: clamp(13px, 2.2vw, 16px);
+      color: var(--green);
+      word-break: break-all;
+      line-height: 1.5;
+      text-shadow: 0 0 8px var(--green-glow);
+      min-height: 48px;
+      animation: flicker 0.08s infinite;
+    }
+ 
+    @keyframes flicker {
+      0%,100%  { opacity: 1; }
+      50%      { opacity: 0.93; }
+    }
+ 
+    /* ── Compteurs ── */
+    .counters {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+ 
+    .counter {
+      border: 1px solid var(--green-dim);
+      padding: 10px 12px;
+      text-align: center;
+    }
+ 
+    .counter .c-label {
+      font-size: 9px;
+      letter-spacing: 2px;
+      color: var(--green-mid);
+      display: block;
+      margin-bottom: 4px;
+    }
+ 
+    .counter .c-val {
+      font-family: 'VT323', monospace;
+      font-size: 26px;
+      color: var(--green);
+      text-shadow: 0 0 10px var(--green-glow);
+    }
+ 
+    /* ── Flux de calculs (log) ── */
+    #log {
+      height: 140px;
+      overflow: hidden;
+      border-top: 1px solid var(--green-dim);
+      padding-top: 12px;
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 3px;
+    }
+ 
+    .log-line {
+      font-size: 11px;
+      color: var(--green-mid);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      animation: fadeInLine 0.3s ease;
+    }
+ 
+    .log-line.bright {
+      color: var(--green);
+      text-shadow: 0 0 6px var(--green-glow);
+    }
+ 
+    @keyframes fadeInLine {
+      from { opacity: 0; transform: translateX(-8px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+ 
+    /* ── Barre de progression ── */
+    .progress-wrap {
+      margin-bottom: 20px;
+    }
+ 
+    .progress-label {
+      font-size: 9px;
+      letter-spacing: 3px;
+      color: var(--green-mid);
+      margin-bottom: 5px;
+    }
+ 
+    .progress-bar {
+      height: 3px;
+      background: var(--green-dim);
+      position: relative;
+      overflow: hidden;
+    }
+ 
+    .progress-fill {
+      height: 100%;
+      background: var(--green);
+      box-shadow: 0 0 10px var(--green);
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+ 
+    /* ── Coin décoratifs ── */
+    .corner { position: absolute; width: 12px; height: 12px; }
+    .corner.tl { top: -1px; left: -1px; border-top: 2px solid var(--green); border-left: 2px solid var(--green); }
+    .corner.tr { top: -1px; right: -1px; border-top: 2px solid var(--green); border-right: 2px solid var(--green); }
+    .corner.bl { bottom: -1px; left: -1px; border-bottom: 2px solid var(--green); border-left: 2px solid var(--green); }
+    .corner.br { bottom: -1px; right: -1px; border-bottom: 2px solid var(--green); border-right: 2px solid var(--green); }
+ 
+    /* ── Scan line overlay ── */
+    #scanlines {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.08) 2px,
+        rgba(0,0,0,0.08) 4px
+      );
+      pointer-events: none;
+    }
+ 
+    /* ── Status barre basse ── */
+    #statusbar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 15;
+      padding: 6px 20px;
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--green-mid);
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid var(--green-dim);
+      background: rgba(0,3,0,0.9);
+    }
+ 
+    #statusbar span { color: var(--green); }
